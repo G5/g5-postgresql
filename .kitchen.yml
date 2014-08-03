@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+  box: g5-postgresql
+  box_url: http://files.vagrantup.com/precise64.box
+  customize:
+    memory: 2048
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[g5-postgresql::default]
+    attributes: {}
