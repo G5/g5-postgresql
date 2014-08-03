@@ -8,6 +8,7 @@ describe 'g5-postgresql::default' do
   end
 
   let(:postgres_password) { 'my_secret' }
+  let(:version) { chef_run.node.postgresql['version'] }
 
   it 'sets up the locale template' do
     expect(chef_run).to create_template('/etc/default/locale').with(
@@ -26,5 +27,13 @@ describe 'g5-postgresql::default' do
 
   it 'creates a vagrant db user' do
     expect(chef_run).to run_execute('sudo -u postgres psql -c "CREATE USER vagrant CREATEDB SUPERUSER"')
+  end
+
+  it 'installs the correct version of the client package' do
+    expect(chef_run).to install_package("postgresql-client-#{version}")
+  end
+
+  it 'installs the correct version of the server package' do
+    expect(chef_run).to install_package("postgresql-#{version}")
   end
 end
