@@ -16,4 +16,7 @@ suites:
   - name: default
     run_list:
       - recipe[g5-postgresql::default]
-    attributes: {}
+    attributes:
+      postgresql:
+        password:
+          postgres: 'password'
