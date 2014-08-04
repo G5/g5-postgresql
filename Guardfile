@@ -1,6 +1,3 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
-
 guard 'foodcritic', cookbook_paths: '.' do
   watch(%r{attributes/.+\.rb$})
   watch(%r{providers/.+\.rb$})
@@ -10,15 +7,15 @@ guard 'foodcritic', cookbook_paths: '.' do
   watch('metadata.rb')
 end
 
-guard :rspec, cmd: 'bundle exec rspec' do
-  watch(%r{^test/unit/(.+)_spec\.rb$})
-  watch(%r{^(recipes)/(.+)\.rb$})     { |m| "test/unit/#{m[0]}/#{m[1]}_spec.rb" }
-  watch('test/unit/spec_helper.rb') { 'spec' }
-  watch(%r{^libraries/.+\.rb$})     { 'spec' }
+guard :rspec, cmd: 'bundle exec rspec', spec_paths: ['test/unit'] do
+  watch(%r{^test/unit/.+_spec\.rb$})
+  watch(%r{^(recipes)/(.+)\.rb$})      { |m| "test/unit/#{m[1]}/#{m[2]}_spec.rb" }
+  watch('test/unit/spec_helper.rb')    { 'test/unit' }
+  watch(%r{^libraries/.+\.rb$})        { 'test/unit' }
 end
 
 guard 'kitchen' do
-  watch(%r{test/.+})
+  watch(%r{test/integration/.+})
   watch(%r{^recipes/(.+)\.rb$})
   watch(%r{^attributes/(.+)\.rb$})
   watch(%r{^files/(.+)})
