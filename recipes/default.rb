@@ -7,5 +7,5 @@ include_recipe 'postgresql::apt_pgdg_postgresql'
 include_recipe 'postgresql::server'
 
 execute 'Create a vagrant db user' do
-  command 'sudo -u postgres sh -c "dropuser vagrant & createuser -ds vagrant"'
+  command 'sudo -u postgres sh -c "dropuser vagrant; createuser -ds vagrant"'
 end

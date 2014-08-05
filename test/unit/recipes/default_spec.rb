@@ -26,7 +26,7 @@ describe 'g5-postgresql::default' do
   end
 
   it 'creates a vagrant db user' do
-    expect(chef_run).to run_execute('sudo -u postgres sh -c "dropuser vagrant & createuser -ds vagrant"')
+    expect(chef_run).to run_execute('sudo -u postgres sh -c "dropuser vagrant; createuser -ds vagrant"')
   end
 
   it 'installs the correct version of the client package' do
