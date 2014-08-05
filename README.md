@@ -1,11 +1,11 @@
-# G5 Postgresql #
+# G5 PostgreSQL #
 
 A wrapper cookbook to install [PostgreSQL](http://www.postgresql.org)
 with the defaults for a G5 development environment.
 
 ## Current version ##
 
-0.1.0
+0.1.1
 
 ## Requirements ##
 
@@ -172,6 +172,47 @@ configured:
 ```console
 $ bundle exec guard start
 ```
+
+### Releasing ###
+
+We strive to follow [semantic versioning](http://semver.org). After all
+pull requests have been merged to master and you determine the
+version number for the next release:
+
+1. Update [CHANGELOG.md](CHANGELOG.md) with the new version, release
+   date, and a synopsis of changes included in this release.
+
+   ```
+   ## v0.1.1 (2014-08-04)
+
+   * Fixed #42: A short description here
+   ```
+
+2. Update [metadata.rb](metadata.rb) with the new version.
+
+   ```ruby
+   name 'g5-postgresql'
+   description 'G5 wrapper cookbook for installing PostgreSQL'
+   version '0.1.1'
+   # ...
+   ```
+
+3. Update [README.md](README.md#current-version) with the new version.
+
+   ```markdown
+   ## Current version
+
+   0.1.1
+   ```
+
+4. Commit your changes and create a tag for the new version.
+
+   ```console
+   git commit -m "Prepare to release v0.1.1"
+   git push origin master
+   git tag -a v0.1.1 -m "Minor bug fixes"
+   git push --tags
+   ```
 
 ## License ##
 
