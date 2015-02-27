@@ -5,7 +5,7 @@ with the defaults for a G5 development environment.
 
 ## Current version ##
 
-0.1.1
+0.2.0
 
 ## Requirements ##
 
@@ -49,7 +49,7 @@ To reference this cookbook in git, simply add the following line to your
 `Berksfile`:
 
 ```ruby
-cookbook 'g5-postgresql', git: 'git@github.com:G5/g5-postgresql.git', tag: 'v0.1.1'
+cookbook 'g5-postgresql', git: 'git@github.com:G5/g5-postgresql.git', tag: 'v0.2.0'
 ```
 
 ## Usage ##
