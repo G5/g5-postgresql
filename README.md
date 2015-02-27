@@ -11,15 +11,20 @@ with the defaults for a G5 development environment.
 
 * [Chef](http://www.getchef.com) >= 10
 * [Vagrant](http://www.vagrantup.com) >= 1.5
-* [Ruby](http://www.ruby-lang.org) >= 1.9
+* [ChefDK](https://downloads.chef.io/chef-dk/) >= 0.4.0
 
 ## Installation ##
 
-Add a dependency on g5-postgresql to your cookbook's metadata.rb:
+### New cookbook ###
 
-```ruby
-depends 'g5-postgresql'
+We recommend using [ChefDK generators](https://docs.chef.io/ctl_chef.html)
+to generate your new cookbook:
+
+```console
+$ chef generate cookbook my-cookbook
 ```
+
+### Existing cookbook ###
 
 The cookbook is currently only available via git. We recommend
 using [Berkshelf](http://berkshelf.com) to manage the installation.
@@ -29,15 +34,22 @@ already:
 
 ```console
 $ cd my-chef-cookbook
-$ gem install berkshelf
-$ berks init
+$ chef exec berks init
 ```
 
-To reference the git version, simply add the following line to your
+### All cookbooks ###
+
+Add a dependency on g5-postgresql to your cookbook's metadata.rb:
+
+```ruby
+depends 'g5-postgresql'
+```
+
+To reference this cookbook in git, simply add the following line to your
 `Berksfile`:
 
 ```ruby
-cookbook 'g5-postgresql', git: 'git@github.com:G5/g5-postgresql.git', tag: '0.1.0'
+cookbook 'g5-postgresql', git: 'git@github.com:G5/g5-postgresql.git', tag: 'v0.1.1'
 ```
 
 ## Usage ##
@@ -121,25 +133,19 @@ If you find bugs, have feature requests or questions, please
   $ cd g5-postgresql
   ```
 
-2. Install required gems using [Bundler](http://bundler.io):
+2. Install required cookbooks using [Berkshelf](http://berkshelf.com/):
 
   ```console
-  $ bundle install
+  $ chef exec berks install
   ```
 
-3. Install required cookbooks using [Berkshelf](http://berkshelf.com/):
+3. Provision an instance for testing using [test-kitchen](http://kitchen.ci):
 
   ```console
-  $ bundle exec berks install
+  $ chef exec kitchen converge
   ```
 
-4. Provision an instance for testing using [test-kitchen](http://kitchen.ci):
-
-  ```console
-  $ bundle exec kitchen converge
-  ```
-
-  See `bundle exec kitchen help` for more test-kitchen commands.
+  See `chef exec kitchen help` for more test-kitchen commands.
 
 ### Specs ###
 
@@ -148,13 +154,13 @@ and live in the `test/unit` directory. To execute the entire
 suite:
 
 ```console
-$ bundle exec rspec
+$ chef exec rspec
 ```
 
 To run the [foodcritic](http://acrmp.github.io/foodcritic) linting tool:
 
 ```console
-$ bundle exec foodcritic .
+$ chef exec foodcritic .
 ```
 
 The integration tests use [ServerSpec](http://serverspec.org), and live
@@ -162,15 +168,7 @@ in the `test/integration/default/serverspec` directory. To execute
 the test suite:
 
 ```console
-$ bundle exec kitchen verify
-```
-
-If you would prefer to automatically monitor the filesystem for changes
-to execute tests, [Guard](https://github.com/guard/guard) has been
-configured:
-
-```console
-$ bundle exec guard start
+$ chef exec kitchen verify
 ```
 
 ### Releasing ###
