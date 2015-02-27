@@ -31,6 +31,10 @@ describe 'g5-postgresql::default' do
     expect(chef_run).to include_recipe('postgresql::server')
   end
 
+  it 'includes the recipe to install postgresql contrib' do
+    expect(chef_run).to include_recipe('postgresql::contrib')
+  end
+
   it 'creates a vagrant db user' do
     expect(chef_run).to run_execute('sudo -u postgres sh -c "dropuser vagrant; createuser -ds vagrant"')
   end
